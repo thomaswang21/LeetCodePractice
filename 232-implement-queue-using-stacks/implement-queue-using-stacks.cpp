@@ -1,7 +1,7 @@
 class MyQueue {
 public:
-     stack<int>stk1;
-     stack<int>stk2;
+    stack<int>stk1;
+    stack<int>stk2;
     MyQueue() {
         
     }
@@ -19,10 +19,11 @@ public:
     
     int peek() {
         if(stk2.empty()){
-        while(!stk1.empty()){
-            stk2.push(stk1.top());
-            stk1.pop();
-        }
+            while(!stk1.empty()){
+                stk2.push(stk1.top());
+                stk1.pop();
+            }
+
         }
         return stk2.top();
     }
