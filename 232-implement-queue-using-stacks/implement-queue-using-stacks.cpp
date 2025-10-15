@@ -1,6 +1,6 @@
 class MyQueue {
 public:
-    stack<int>stk1;
+    stack<int> stk1;
     stack<int>stk2;
     MyQueue() {
         
@@ -23,7 +23,6 @@ public:
                 stk2.push(stk1.top());
                 stk1.pop();
             }
-
         }
         return stk2.top();
     }
