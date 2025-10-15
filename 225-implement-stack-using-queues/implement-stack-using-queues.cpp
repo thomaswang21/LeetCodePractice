@@ -1,41 +1,45 @@
 class MyStack {
 public:
-    queue<int> q1, q2;
-
-    MyStack() {}
-
+    queue<int>q1;
+    queue<int>q2;
+    MyStack() {
+        
+    }
+    
     void push(int x) {
         q1.push(x);
     }
-
+    
     int pop() {
-        while (q1.size() > 1) {
+        while(q1.size()>1){
             q2.push(q1.front());
             q1.pop();
         }
-        int val = q1.front();
+        int val=q1.front();
         q1.pop();
         swap(q1, q2);
         return val;
-    }
 
+    }
+    
     int top() {
-        while (q1.size() > 1) {
+        while(q1.size()>1){
             q2.push(q1.front());
             q1.pop();
+
         }
-        int val = q1.front();
-        q2.push(val); // 注意，top 不能丢掉
+        int val=q1.front();
+        q2.push(val);
         q1.pop();
         swap(q1, q2);
         return val;
-    }
 
+    }
+    
     bool empty() {
         return q1.empty()&&q2.empty();
     }
 };
-
 
 /**
  * Your MyStack object will be instantiated and called as such:
