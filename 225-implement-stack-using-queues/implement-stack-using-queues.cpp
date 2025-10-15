@@ -11,14 +11,14 @@ public:
     }
     
     int pop() {
-    while(q1.size()>1){
-        q2.push(q1.front());
+        while(q1.size()>1){
+            q2.push(q1.front());
+            q1.pop();
+        }
+        int val=q1.front();
         q1.pop();
-    }
-    int val=q1.front();
-    q1.pop();
-    swap(q1,q2);
-    return val;
+        swap(q1, q2);
+        return val;
     }
     
     int top() {
@@ -26,10 +26,9 @@ public:
             q2.push(q1.front());
             q1.pop();
         }
-        int val= q1.front();
-         q1.pop();
+        int val=q1.front();
+        q1.pop();
         q2.push(val);
-       
         swap(q1, q2);
         return val;
     }
