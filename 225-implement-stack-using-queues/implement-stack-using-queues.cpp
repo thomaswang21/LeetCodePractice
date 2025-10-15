@@ -27,8 +27,9 @@ public:
             q1.pop();
         }
         int val= q1.front();
+         q1.pop();
         q2.push(val);
-        q1.pop();
+       
         swap(q1, q2);
         return val;
     }
