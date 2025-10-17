@@ -11,7 +11,7 @@ public:
     }
     
     void pop() {
-        if(stk.top()<=f.top())f.pop();
+        if(stk.top()==f.top())f.pop();
         stk.pop();
     }
     
