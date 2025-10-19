@@ -2,9 +2,9 @@ class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
         int n=nums.size();
-        vector<int>result(n);
+        vector<int>result(n,1);
         int prefix=1;
-        for(int i=0; i<n;i++){
+        for(int i=0;i<nums.size();i++){
             result[i]=prefix;
             prefix=prefix*nums[i];
         }
