@@ -1,12 +1,12 @@
 class Solution {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
-        unordered_map<int,int>hash;
-        for(int i=0; i<nums.size();i++){
+        unordered_map<int,int>hash;;
+        for(int i=0;i<nums.size();i++){
             hash[nums[i]]++;
         }
-        priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>>heap;
-        for(auto &t:hash){
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>heap;
+        for(auto t:hash){
             heap.push({t.second, t.first});
             if(heap.size()>k)heap.pop();
         }
@@ -16,5 +16,6 @@ public:
             heap.pop();
         }
         return ans;
+
     }
 };
