@@ -6,8 +6,9 @@ public:
         unordered_map<char,int>hash;
         while(right<s.size()){
             char c=s[right];
-            right++;
+            
             hash[c]++;
+            right++;
             while(hash[c]>1){
                 char d=s[left];
                 left++;
