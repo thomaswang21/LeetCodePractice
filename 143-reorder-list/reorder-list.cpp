@@ -1,64 +1,30 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) {}
- *     ListNode(int x) : val(x), next(nullptr) {}
- *     ListNode(int x, ListNode *next) : val(x), next(next) {}
- * };
- */
+#include <stack>
+
 class Solution {
 public:
-   void reorderList(ListNode* head) {
-    if (head == nullptr || head->next == nullptr) {
-        return;
+    void reorderList(ListNode* head) {
+        std::stack<ListNode*> stk;
+        // 先把所有节点装进栈里，得到倒序结果
+        ListNode* p = head;
+        while (p != nullptr) {
+            stk.push(p);
+            p = p->next;
+        }
+
+        p = head;
+        while (!stk.empty()) {
+            // 链表尾部的节点
+            ListNode* lastNode = stk.top();
+            stk.pop();
+            ListNode* next = p->next;
+            if (lastNode == next || lastNode->next == next) {
+                // 结束条件，链表节点数为奇数或偶数时均适用
+                lastNode->next = nullptr;
+                break;
+            }
+            p->next = lastNode;
+            lastNode->next = next;
+            p = next;
+        }
     }
-
-    // 使用快慢指针找到链表的中间节点
-    ListNode* slow = head;
-    ListNode* fast = head;
-    while (fast->next != nullptr && fast->next->next != nullptr) {
-        slow = slow->next;
-        fast = fast->next->next;
-    }
-
-    // 反转第二部分链表
-    ListNode* secondHalf = reverseList(slow->next);
-    slow->next = nullptr;
-
-    // 合并两个链表
-    mergeLists(head, secondHalf);
-}
-
-ListNode* reverseList(ListNode* head) {
-    ListNode* prev = nullptr;
-    ListNode* curr = head;
-    while (curr != nullptr) {
-        ListNode* next = curr->next;
-        curr->next = prev;
-        prev = curr;
-        curr = next;
-    }
-    return prev;
-}
-
-void mergeLists(ListNode* l1, ListNode* l2) {
-    ListNode* p1 = l1;
-    ListNode* p2 = l2;
-    while (p1 != nullptr && p2 != nullptr) {
-        ListNode* p1Next = p1->next;
-        ListNode* p2Next = p2->next;
-
-        p1->next = p2;
-        p2->next = p1Next;
-
-        p1 = p1Next;
-        p2 = p2Next;
-    }
-}
-
-
-
-
 };
