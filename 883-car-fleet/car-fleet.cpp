@@ -10,9 +10,7 @@ public:
             cars[i][1] = speed[i];
         }
         // 按照初始位置，从小到大排序
-        sort(cars.begin(), cars.end(), [](const vector<int>& a, const vector<int>& b) {
-            return a[0] < b[0];
-        });
+        sort(cars.begin(), cars.end());
         
         // 计算每辆车到达终点的时间
         vector<double> time(n);
