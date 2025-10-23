@@ -25,7 +25,6 @@ public:
             found = true;
             return;
         }
-        if (found) return; // 已找到结果，提前返回
 
         int m = board.size(), n = board[0].size();
         if (i < 0 || j < 0 || i >= m || j >= n) return; // 越界
