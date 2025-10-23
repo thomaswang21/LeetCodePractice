@@ -12,15 +12,13 @@
 
 
 /***************************************** Approach 1 Code *****************************************/
+
 class Solution {
 public:
     void setZeroes(vector<vector<int>>& matrix) {
-        int n = matrix.size();         // 行数
-        int m = matrix[0].size();      // 列数
-
-        vector<vector<int>> visited = matrix;  // 拷贝一份原矩阵
-
-        // 第一次遍历：把含 0 元素所在行在 visited 里置为 0
+        int n = matrix.size();
+        int m = matrix[0].size();
+        vector<vector<int>> visited = matrix;
         for(int i=0; i<n; i++){
             for(int j=0; j<m; j++){
                 if(matrix[i][j] == 0){
@@ -30,8 +28,6 @@ public:
                 }
             }
         }
-
-        // 第二次遍历：把含 0 元素所在列在 visited 里置为 0
         for(int i=0; i<n; i++){
             for(int j=0; j<m; j++){
                 if(matrix[i][j] == 0){
@@ -41,8 +37,6 @@ public:
                 }
             }
         }
-
-        // 把 visited 里的内容复制回原始 matrix
         for(int i=0; i<n; i++){
             for(int j=0; j<m; j++){
                 matrix[i][j] = visited[i][j];
