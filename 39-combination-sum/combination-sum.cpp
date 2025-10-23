@@ -1,41 +1,25 @@
 class Solution {
 public:
-    vector<vector<int>> res;
-
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        if (candidates.empty()) {
-            return res;
-        }
-        backtrack(candidates, 0, target, 0);
+    vector<int>track;
+    vector<vector<int>>res;
+    vector<vector<int>> combinationSum(vector<int>& nums, int target) {
+        backtrack(nums,0,target,0);
         return res;
     }
-
-    // 记录回溯的路径
-    vector<int> track;
-
-    // 回溯算法主函数
-    void backtrack(vector<int>& candidates, int start, int target, int sum) {
-        if (sum == target) {
-            // 找到目标和
+    void backtrack(vector<int>&nums, int start, int target, int sum ){
+        if(sum==target){
             res.push_back(track);
             return;
         }
-
-        if (sum > target) {
-            // 超过目标和，直接结束
+        if(sum>target){
             return;
         }
-
-        // 回溯算法框架
-        for (int i = start; i < candidates.size(); i++) {
-            // 选择 candidates[i]
-            track.push_back(candidates[i]);
-            sum += candidates[i];
-            // 递归遍历下一层回溯树
-            backtrack(candidates, i, target, sum);
-            // 撤销选择 candidates[i]
-            sum -= candidates[i];
-            track.pop_back();
+        for(int i=start;i<nums.size();i++){
+            track.push_back(nums[i]);
+            sum+=nums[i];
+            backtrack(nums, i,target,sum);
+            sum-=nums[i];
+             track.pop_back();
         }
     }
 };
