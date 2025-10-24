@@ -25,9 +25,9 @@ public:
 
             // 每个元素只能用一次，所以下一层用 i+1
             backtrack(candidates, i + 1, target, sum);
-
+             track.pop_back();
             sum -= candidates[i]; // 撤销选择
-            track.pop_back();
+           
         }
     }
 };
