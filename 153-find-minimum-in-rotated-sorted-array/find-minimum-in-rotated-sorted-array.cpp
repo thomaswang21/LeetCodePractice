@@ -13,6 +13,6 @@ public:
             }
         }
         // 最终 left == right 指向最小值
-        return nums[left];
+        return nums[right];
     }
 };
