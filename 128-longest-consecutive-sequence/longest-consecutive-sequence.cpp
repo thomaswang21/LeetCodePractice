@@ -1,21 +1,22 @@
 class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
-        if(nums.empty())return 0;
-        unordered_set<int>numSet(nums.begin(),nums.end());
-        int longest=0;
-        for(int num:numSet){
-            if(!numSet.count(num-1)){
-                int currentNum=num;
-                int currentStreak=1;
-            
-            while(numSet.count(currentNum+1)){
-                currentNum++;
-                currentStreak++;
-            }
-            longest=max(longest, currentStreak);
+        unordered_set<int> hash(nums.begin(), nums.end());
+        int longest = 0;
 
-        }
+        for (int num : hash) { // 遍历 hash 而不是 nums，可以去重
+            // 找到连续序列的起点
+            if (!hash.count(num - 1)) {
+                int current = num;
+                int length = 1;
+
+                // 向右扩展连续序列
+                while (hash.count(current + 1)) {
+                    current++;
+                    length++;
+                }
+                longest = max(longest, length);
+            }
         }
         return longest;
     }
