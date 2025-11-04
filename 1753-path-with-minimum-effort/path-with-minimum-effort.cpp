@@ -1,83 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+
 class Solution {
 public:
-    // Dijkstra 算法，计算 (0, 0) 到 (m - 1, n - 1) 的最小体力消耗
     int minimumEffortPath(vector<vector<int>>& heights) {
-        return dijkstra(heights);
-    }
+        int rows = heights.size(), cols = heights[0].size();
 
-    // 记录当前位置和从起点到当前位置的最小体力消耗
-    struct State {
-        int row;
-        int col;
-        int effortFromStart;
-        State(int row, int col, int effortFromStart)
-            : row(row), col(col), effortFromStart(effortFromStart) {}
-        // For priority_queue (min-heap)
-        bool operator>(const State& other) const {
-            return effortFromStart > other.effortFromStart;
-        }
-    };
+        // effort[r][c] 表示从 (0,0) 到 (r,c) 的最小体力消耗
+        vector<vector<int>> effort(rows, vector<int>(cols, INT_MAX));
 
-    // Dijkstra 算法模板 https://labuladong.online/algo/data-structure/dijkstra/
-    int dijkstra(vector<vector<int>>& matrix) {
-        int m = matrix.size(), n = matrix[0].size();
-        // 记录从起点 (0, 0) 到每个节点的最小体力消耗
-        vector<vector<int>> distTo(m, vector<int>(n, -1));
+        // 小顶堆，元素为 {effort, row, col}
+        priority_queue<tuple<int,int,int>, vector<tuple<int,int,int>>, greater<>> pq;
+        pq.push({0, 0, 0});
+        effort[0][0] = 0;
 
-        priority_queue<State, vector<State>, greater<State>> pq;
-
-        // 从起点 (0, 0) 开始进行 dijkstra 算法
-        pq.emplace(0, 0, 0);
+        vector<int> dir = {0, 1, 0, -1, 0};
 
         while (!pq.empty()) {
-            State state = pq.top();
+            auto [currEffort, r, c] = pq.top();
             pq.pop();
-            int curRow = state.row;
-            int curCol = state.col;
-            int curEffortFromStart = state.effortFromStart;
 
-            if (distTo[curRow][curCol] != -1) {
-                continue;
-            }
+            // 抵达右下角
+            if (r == rows - 1 && c == cols - 1) return currEffort;
 
-            distTo[curRow][curCol] = curEffortFromStart;
+            for (int i = 0; i < 4; i++) {
+                int nr = r + dir[i];
+                int nc = c + dir[i + 1];
 
-            // 如果 curNode 是终点 dst，直接返回最小路径权重和
-            if (curRow == m - 1 && curCol == n - 1) {
-                return curEffortFromStart;
-            }
+                if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
+                    int nextEffort = max(currEffort, abs(heights[r][c] - heights[nr][nc]));
 
-            for (const auto& neighbor : adj(matrix, curRow, curCol)) {
-                int nextRow = neighbor[0];
-                int nextCol = neighbor[1];
-                int nextEffortFromStart = max(curEffortFromStart, abs(matrix[nextRow][nextCol] - matrix[curRow][curCol]));
-
-                if (distTo[nextRow][nextCol] != -1) {
-                    continue;
+                    if (nextEffort < effort[nr][nc]) {
+                        effort[nr][nc] = nextEffort;
+                        pq.push({nextEffort, nr, nc});
+                    }
                 }
-                pq.emplace(nextRow, nextCol, nextEffortFromStart);
             }
         }
 
-        return -1;
-    }
-
-    // 返回坐标 (x, y) 的上下左右相邻坐标
-    vector<vector<int>> adj(const vector<vector<int>>& matrix, int x, int y) {
-        // 方向数组，上下左右的坐标偏移量
-        static const vector<vector<int>> dirs = { {0, 1}, {1, 0}, {0, -1}, {-1, 0} };
-        int m = matrix.size(), n = matrix[0].size();
-        // 存储相邻节点
-        vector<vector<int>> neighbors;
-        for (const auto& dir : dirs) {
-            int nx = x + dir[0];
-            int ny = y + dir[1];
-            if (nx >= m || nx < 0 || ny >= n || ny < 0) {
-                // 索引越界
-                continue;
-            }
-            neighbors.push_back({ nx, ny });
-        }
-        return neighbors;
+        return 0;
     }
 };
