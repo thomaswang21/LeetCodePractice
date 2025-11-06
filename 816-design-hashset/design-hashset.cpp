@@ -1,23 +1,47 @@
-class MyHashSet {
-public:
-    vector<bool>ans;
-    MyHashSet() {
-        ans.resize(1e6+1, false);
 
+class MyHashSet {
+private:
+    static const int SIZE = 1000;
+    vector<vector<int>> table;
+
+    int hash(int key) {
+        return key % SIZE;
     }
-    
+
+public:
+    MyHashSet() {
+        table.resize(SIZE);
+    }
+
     void add(int key) {
-        ans[key]=true;
+        int h = hash(key);
+        for (int x : table[h]) {
+            if (x == key) return; // already exists
+        }
+        table[h].push_back(key);
     }
-    
+
     void remove(int key) {
-        ans[key]=false;
+        int h = hash(key);
+        auto &bucket = table[h];
+        for (auto it = bucket.begin(); it != bucket.end(); ++it) {
+            if (*it == key) {
+                bucket.erase(it);
+                return;
+            }
+        }
     }
-    
+
     bool contains(int key) {
-        return ans[key];
+        int h = hash(key);
+        for (int x : table[h]) {
+            if (x == key) return true;
+        }
+        return false;
     }
 };
+
+
 
 /**
  * Your MyHashSet object will be instantiated and called as such:
