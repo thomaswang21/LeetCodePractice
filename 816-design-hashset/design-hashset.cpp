@@ -1,7 +1,7 @@
 
 class MyHashSet {
 private:
-    static const int SIZE = 1000;
+   int SIZE = 1000;
     vector<vector<int>> table;
 
     int hash(int key) {
