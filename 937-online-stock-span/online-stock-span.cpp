@@ -1,9 +1,11 @@
 class StockSpanner {
-    stack<int> stk;         // 只存价格
+            // 只存价格
     vector<int> history;    // 存过去的价格，用于计算跨度
 
 public:
-    StockSpanner() {}
+    StockSpanner() {
+        
+    }
 
     int next(int price) {
         int count = 1;  // 至少包含今天自己
