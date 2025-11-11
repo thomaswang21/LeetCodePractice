@@ -23,7 +23,12 @@ public:
             while (!st.empty() && heights[i] < heights[st.top()]) {
                 int h = heights[st.top()]; // 当前矩形的高度
                 st.pop();
-                int left = st.empty() ? 0 : st.top() + 1; // 左边界
+                int left;
+                if (st.empty()) {
+                    left = 0;
+                } else {
+                    left = st.top() + 1;
+                }
                 int width = i - left; // 宽度
                 int area = h * width; // 面积
                 if (area > maxArea) {
