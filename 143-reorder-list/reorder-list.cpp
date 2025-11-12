@@ -1,30 +1,34 @@
-#include <stack>
-
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
 public:
     void reorderList(ListNode* head) {
-        std::stack<ListNode*> stk;
-        // 先把所有节点装进栈里，得到倒序结果
-        ListNode* p = head;
-        while (p != nullptr) {
+        stack<ListNode*>stk;
+        auto p=head;
+        while(p!=NULL){
             stk.push(p);
-            p = p->next;
+            p=p->next;
         }
-
-        p = head;
-        while (!stk.empty()) {
-            // 链表尾部的节点
-            ListNode* lastNode = stk.top();
+        p=head;
+        while(!stk.empty()){
+            ListNode*lastnode=stk.top();
             stk.pop();
-            ListNode* next = p->next;
-            if (lastNode == next || lastNode->next == next) {
-                // 结束条件，链表节点数为奇数或偶数时均适用
-                lastNode->next = nullptr;
+            ListNode*next=p->next;
+            if(lastnode==next||lastnode->next==next){
+                lastnode->next=nullptr;
                 break;
             }
-            p->next = lastNode;
-            lastNode->next = next;
-            p = next;
+            p->next=lastnode;
+            lastnode->next=next;
+            p=next;
         }
     }
 };
