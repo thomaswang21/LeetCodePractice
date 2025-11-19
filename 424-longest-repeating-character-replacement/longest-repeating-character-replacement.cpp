@@ -7,8 +7,9 @@ public:
         int maxhash=0;
         while(r<s.length()){
             char c=s[r];
-            r++;
+            
             hash[c]++;
+            r++;
             
             maxhash=max(maxhash,hash[c]);
             while(r-l-maxhash>k){
