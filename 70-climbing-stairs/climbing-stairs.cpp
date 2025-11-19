@@ -12,7 +12,7 @@ public:
     int climbStairs(int n) {
         if (n <= 2) return n; // 处理小规模情况
 
-        vector<int> f(n + 1, 0); // 创建长度为 n+1 的数组
+        vector<int> f(n + 1); // 创建长度为 n+1 的数组
         f[1] = 1;
         f[2] = 2;
 
