@@ -1,24 +1,23 @@
 class Solution {
 public:
     int characterReplacement(string s, int k) {
-        unordered_map<char,int>hash;
-        int l=0, r=0;
+        int left=0, right=0;
         int res=0;
-        int maxhash=0;
-        while(r<s.length()){
-            char c=s[r];
-            
+        int maxNum=0;
+        unordered_map<char,int>hash;
+        while(right<s.size()){
+            char c=s[right];
             hash[c]++;
-            r++;
-            
-            maxhash=max(maxhash,hash[c]);
-            while(r-l-maxhash>k){
-                char d=s[l];
-                hash[d]--;
-                l++;
+            right++;
+            maxNum=max(maxNum, hash[c]);
+            while(right-left-maxNum>k){
+                    char d=s[left];
+                    hash[d]--;
+                    left++;
             }
-            res=max(res, r-l);
+            res=max(res,right-left);
         }
         return res;
+
     }
 };
