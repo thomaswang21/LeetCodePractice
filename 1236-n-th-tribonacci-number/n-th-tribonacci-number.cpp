@@ -6,6 +6,7 @@ public:
         //处理边界情况
         if( n == 0 || n == 1)
             return n;
+            if(n==2)return 1;
         vector<int> dp(n + 1);
         // 初始化
         dp[0] = 0, dp[1] = 1, dp[2] = 1;
