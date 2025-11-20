@@ -1,20 +1,27 @@
 class StockSpanner {
-    // int[] 记录 {价格，小于等于该价格的天数} 二元组
-    stack<pair<int, int>> stk;
+            // 只存价格
+    vector<int> history;    // 存过去的价格，用于计算跨度
 
 public:
+    StockSpanner() {
+        
+    }
+
     int next(int price) {
-        // 算上当天
-        int count = 1;
-        // 单调栈模板
-        while (!stk.empty() && price >= stk.top().first) {
-            // 挤掉价格低于 price 的记录
-            pair<int, int> prev = stk.top();
-            stk.pop();
-            // 计算小于等于 price 的天数
-            count += prev.second;
+        int count = 1;  // 至少包含今天自己
+        int n = history.size();
+
+        // 从右往左遍历历史价格，统计连续 <= price 的天数
+        for (int i = n - 1; i >= 0; i--) {
+            if (history[i] <= price) {
+                count++;
+            } else {
+                break; // 遇到比今天大的价格就停止
+            }
         }
-        stk.push({price, count});
+
+        // 保存今天价格
+        history.push_back(price);
 
         return count;
     }
