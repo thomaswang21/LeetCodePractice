@@ -30,6 +30,9 @@ public:
             if (!st.empty()) {
                 ans[i] = st.top() - i;
             }
+            if(st.empty()){
+                ans[i]=0;
+            }
 
             // 当前索引入栈
             st.push(i);
