@@ -18,7 +18,6 @@ public:
                 p->next=l1;
                 p=p->next;
                 l1=l1->next;
-
             }else{
                 p->next=l2;
                 p=p->next;
