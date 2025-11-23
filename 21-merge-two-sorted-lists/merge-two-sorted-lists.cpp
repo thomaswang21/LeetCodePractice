@@ -16,8 +16,9 @@ public:
         while(l1&&l2){
             if(l1->val<l2->val){
                 p->next=l1;
-                p=p->next;
                 l1=l1->next;
+                p=p->next;
+                
             }else{
                 p->next=l2;
                 p=p->next;
