@@ -1,25 +1,36 @@
 class Solution {
-private:
-    string track="";
-    vector<string>res;
 public:
+    vector<string> ans;
+    string track;
+
     vector<string> generateParenthesis(int n) {
-        if(n==0)return res;
-        backtrack(n,n);
-        return res;
+        dfs(n, 0, 0);
+        return ans;
     }
-    void backtrack(int left, int right){
-        if(right<left)return;
-        if(left<0||right<0)return;
-        if(left==0&&right==0){
-            res.push_back(track);
+
+    void dfs(int n, int left, int right) {
+        // left：当前使用了多少 '('
+        // right：当前使用了多少 ')'
+
+        // 1. 如果左右都用满 n 个，加入答案
+        if (left == n && right == n) {
+            ans.push_back(track);
             return;
         }
-        track.push_back('(');
-        backtrack(left-1,right);
-        track.pop_back();
-        track.push_back(')');
-        backtrack(left, right-1);
-        track.pop_back();
+
+        // 2. 选择 '('
+        if (left < n) {
+            track.push_back('(');
+            dfs(n, left + 1, right);
+            track.pop_back();
+        }
+
+        // 3. 选择 ')'
+        //   前提：右括号不能超过左括号
+        if (right < left) {
+            track.push_back(')');
+            dfs(n, left , right+1);
+            track.pop_back();
+        }
     }
 };
