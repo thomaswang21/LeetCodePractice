@@ -20,9 +20,9 @@ public:
             sum += nums[i];
 
             backtrack(nums, i, target, sum);  // ⭐ 允许重复选同一个 i
-
+        track.pop_back();
             sum -= nums[i];
-            track.pop_back();
+            
         }
     }
 };
