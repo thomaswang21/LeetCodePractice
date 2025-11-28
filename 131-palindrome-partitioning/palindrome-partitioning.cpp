@@ -11,7 +11,7 @@ public:
     // 回溯算法框架
     void backtrack(string s, int start) {
         if (start == s.length()) {
-            // base case，走到叶子节点
+            // base case，走到叶子节点a
             // 即整个 s 被成功分割为若干个回文子串，记下答案
             res.push_back(track);
         }
