@@ -9,6 +9,9 @@ public:
             if (end == i) {
                 jumps++;
                 end = farthest;
+                if(end>=n-1){
+                    break;
+                }
             }
         }
         return jumps;
