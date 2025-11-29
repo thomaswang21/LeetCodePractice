@@ -11,7 +11,7 @@ public:
                 if (left.empty() && star.empty()) return false;
                 if (!left.empty()) {
                     left.pop();
-                } else {
+                } else if(!star.empty()){
                     star.pop();
                 }
             }
