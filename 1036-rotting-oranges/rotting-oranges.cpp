@@ -12,7 +12,7 @@ public:
             }
         }
 
-        vector<pair<int,int>> direction = {{1,0},{-1,0},{0,1},{0,-1}};
+        vector<vector<int>> direction = {{1,0},{-1,0},{0,1},{0,-1}};
 
         while(!q.empty() && fresh > 0) {
             int length = q.size();
@@ -22,8 +22,8 @@ public:
                 q.pop(); // ✅ 别忘了 pop
 
                 for(int k = 0; k < 4; k++) {
-                    int row = r + direction[k].first;
-                    int col = c + direction[k].second;
+                    int row = r + direction[k][0];
+                    int col = c + direction[k][1];
                     if(row >= 0 && row < grid.size() && col >= 0 && col < grid[0].size() && grid[row][col] == 1) {
                         grid[row][col] = 2;
                         q.push({row, col});
