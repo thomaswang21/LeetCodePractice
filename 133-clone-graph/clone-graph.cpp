@@ -22,16 +22,16 @@ public:
 class Solution {
 public:
     Node* cloneGraph(Node* node) {
-        unordered_map<Node*, Node*>p;
-        return dfs(node, p);
+        unordered_map<Node*,Node*>p;
+        return dfs(node,p);
     }
-    Node* dfs(Node*node, unordered_map<Node*, Node*>&p){
+    Node*dfs(Node*node, unordered_map<Node*,Node*>&p){
         if(node==nullptr)return nullptr;
         if(p.count(node))return p[node];
         Node*copy=new Node(node->val);
         p[node]=copy;
         for(Node*nei:node->neighbors){
-            copy->neighbors.push_back(dfs(nei, p));
+            copy->neighbors.push_back(dfs(nei,p));
         }
         return copy;
     }
