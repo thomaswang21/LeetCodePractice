@@ -27,6 +27,6 @@ public:
         // 背包容量为 sum/2 时，能够装的最大重量
         int maxWeight = dp[stones.size()][sum / 2];
         // 两个子集的重量差
-        return sum - maxWeight - maxWeight;
+        return sum -2* maxWeight;
     }
 };
