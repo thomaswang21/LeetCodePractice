@@ -14,7 +14,7 @@ public:
         if (n == 0) return 0; // 没有房子
         if (n == 1) return nums[0]; // 只有一个房子
 
-        vector<int> dp(n);
+        vector<int> dp(n, 0);
         dp[0] = nums[0];
         dp[1] = max(nums[0], nums[1]);
 
