@@ -35,7 +35,7 @@ public:
 
     void remove(int key) {
         int idx = hash(key);
-        for (auto it = table[idx].begin(); it != table[idx].end(); ++it) {
+        for (auto it = table[idx].begin(); it != table[idx].end(); it++) {
             if (it->first == key) {
                 table[idx].erase(it);
                 return;
