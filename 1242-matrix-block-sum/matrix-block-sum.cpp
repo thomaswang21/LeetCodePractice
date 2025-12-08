@@ -8,7 +8,7 @@ public:
 
     vector<vector<int>> matrixBlockSum(vector<vector<int>>& g, int k) {
         int n = g.size(), m = g[0].size();
-        s = vector<vector<int>>(n + 1, vector<int>(m + 1));
+        s = vector<vector<int>>(n + 1, vector<int>(m + 1,0));
         for (int i = 1; i <= n; i ++ ) {
             for (int j = 1; j <= m; j ++ ) {
                 s[i][j] = s[i - 1][j] + s[i][j - 1] - s[i - 1][j - 1] + g[i - 1][j - 1];
