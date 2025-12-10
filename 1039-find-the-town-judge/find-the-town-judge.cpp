@@ -1,7 +1,7 @@
 class Solution {
 public:
     int findJudge(int n, vector<vector<int>>& trust) {
-        vector<int>incoming(n+1), outgoing(n+1);
+        vector<int>incoming(n+1,0), outgoing(n+1,0);
         for(auto &t:trust){
             incoming[t[1]]++;
             outgoing[t[0]]++;
