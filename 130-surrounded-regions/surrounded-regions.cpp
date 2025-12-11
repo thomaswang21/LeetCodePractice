@@ -31,7 +31,7 @@ public:
     void dfs(int x, int y, vector<vector<char>>& board) {
         st[x][y] = true;
 
-        static int dirs[4][2] = {{1,0},{-1,0},{0,1},{0,-1}};
+        static int dirs[4][2] = {{-1,0},{1,0},{0,1},{0,-1}};
 
         for (auto& d : dirs) {
             int a = x + d[0];
