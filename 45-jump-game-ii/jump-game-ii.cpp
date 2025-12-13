@@ -6,7 +6,7 @@ public:
         int jumps = 0;
         for (int i = 0; i < n - 1; i++) {
             farthest = max(nums[i] + i, farthest);
-            if (end == i) {
+            if (i==end) {
                 jumps++;
                 end = farthest;
                 if(end>=n-1){
