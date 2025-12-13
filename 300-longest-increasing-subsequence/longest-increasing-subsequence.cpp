@@ -14,6 +14,10 @@ public:
             }
         }
 
-        return *max_element(dp.begin(), dp.end());
-    }
+            int res = 0;
+            for (int x : dp) {
+                res = max(res, x);
+            }
+            return res;
+                }
 }; 
