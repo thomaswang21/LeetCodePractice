@@ -15,6 +15,7 @@ public:
         int step = 0;
         while (!q.empty()) {
             int sz = q.size();
+            
             for (int j = 0; j < sz; j++) {
                 string cur = q.front();
                 q.pop();
