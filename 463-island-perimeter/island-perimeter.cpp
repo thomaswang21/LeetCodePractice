@@ -8,7 +8,7 @@ public:
         vector<vector<bool>>visited(rows,vector<bool>(cols,false));
         for(int i=0;i<rows;i++){
             for(int j=0; j<cols;j++){
-                if(grid[i][j]==1&&!visited[i][j]){
+                if(grid[i][j]==1){
                     return dfs(grid,i,j,visited);
                 }
             }
