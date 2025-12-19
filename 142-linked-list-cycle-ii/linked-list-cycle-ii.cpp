@@ -1,31 +1,26 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
 class Solution {
 public:
     ListNode *detectCycle(ListNode *head) {
-        if(!head||!head->next)return NULL;
-        auto first=head;
-        auto second=head;
-        while(first &&second){
-            first=first->next;
-            second=second->next;
-            if(second)second=second=second->next;
-            else return 0;
-            if(first==second){
-                first=head;
-                while(first!=second){
-                    first=first->next;
-                    second=second->next;
-                }
-                return first;
-            }
+        ListNode *fast, *slow;
+        fast = slow = head;
+        while (fast != nullptr && fast->next != nullptr) {
+            fast = fast->next->next;
+            slow = slow->next;
+            if (fast == slow) break;
         }
-        return 0;
+        // 上面的代码类似 hasCycle 函数
+        if (fast == nullptr || fast->next == nullptr) {
+            // fast 遇到空指针说明没有环
+            return nullptr;
+        }
+
+        // 重新指向头结点
+        slow = head;
+        // 快慢指针同步前进，相交点就是环起点
+        while (slow != fast) {
+            fast = fast->next;
+            slow = slow->next;
+        }
+        return fast;
     }
 };
