@@ -15,9 +15,9 @@ public:
         dummy->next=head;
         int n=0;
         for(auto p=dummy;p;p=p->next)n++;
-        auto p=dummy;
-        for(int i=0;i<n-k-1;i++)p=p->next;
-        p->next=p->next->next;
+        auto d=dummy;
+        for(int i=0;i<n-k-1;i++)d=d->next;
+        d->next=d->next->next;
         return dummy->next;
     }
 };
