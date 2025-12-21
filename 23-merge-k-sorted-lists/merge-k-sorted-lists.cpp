@@ -17,8 +17,8 @@ class Solution {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
         if(lists.empty())return nullptr;
-        ListNode*dummy=new ListNode(-1);
-        ListNode*p=dummy;
+        auto*dummy=new ListNode(-1);
+        auto*p=dummy;
         priority_queue<ListNode*, vector<ListNode*>,cmp>pq;
         for(ListNode*head:lists){
            if(head!=nullptr){
