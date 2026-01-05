@@ -17,7 +17,7 @@ public:
         // 前缀和到索引的映射，方便快速查找所需的前缀和
         unordered_map<int, int> valToIndex;
         int res = 0;
-        for (int i = 0; i < preSum.size(); i++) {
+        for (int i = 0; i < nums.size()+1; i++) {
             // 如果这个前缀和还没有对应的索引，说明这个前缀和第一次出现，记录下来
             if (valToIndex.find(preSum[i]) == valToIndex.end()) {
                 valToIndex[preSum[i]] = i;
