@@ -1,31 +1,21 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        // Map to store the last seen index of each character
-        // Key: character, Value: index
-        unordered_map<char, int> charIndexMap;
-        
-        int maxLength = 0;
-        int left = 0;
-        
-        // Iterate through the string with the 'right' pointer
-        for (int right = 0; right < s.length(); right++) {
-            char currentChar = s[right];
-            
-            // If character is found in map and is inside the current window
-            if (charIndexMap.find(currentChar) != charIndexMap.end() && 
-                charIndexMap[currentChar] >= left) {
-                // Move the left pointer to the right of the previous occurrence
-                left = charIndexMap[currentChar] + 1;
+        unordered_map<char,int>charIndex;
+        int n=s.length();
+        int left=0;
+        int right;
+        int max_len=0;
+        for(right=0;right<n;right++){
+            char currentChar=s[right];
+            if(charIndex.count(currentChar)){
+                left=max(left,charIndex[currentChar]+1);
+
             }
-            
-            // Update the last seen index of the current character
-            charIndexMap[currentChar] = right;
-            
-            // Calculate current window length and update max
-            maxLength = max(maxLength, right - left + 1);
+            charIndex[currentChar]=right;
+            max_len=max(max_len, right-left+1);
         }
-        
-        return maxLength;
+        return max_len;
+
     }
 };
