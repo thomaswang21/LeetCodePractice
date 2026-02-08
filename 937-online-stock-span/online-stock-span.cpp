@@ -4,39 +4,26 @@
 class StockSpanner {
 private:
     // Stack stores pairs of {price, span}
-    // We use long long for safety, though int is sufficient per constraints
-    std::stack<std::pair<int, int>> st;
+    std::stack<std::pair<int, int>> s;
 
 public:
     StockSpanner() {
-        // Constructor initializes the empty stack implicitly
+        // No explicit initialization needed for the stack
     }
     
     int next(int price) {
-        int span = 1;
+        int current_span = 1;
         
-        // While stack is not empty and top price is <= current price
-        // We "collect" the span of the smaller previous prices
-        while (!st.empty() && st.top().first <= price) {
-            span += st.top().second; // Add the previous span to current
-            st.pop();                // Remove the smaller price
+        // If the current price is greater than or equal to the price at the top of the stack,
+        // it means the current price "consumes" the span of the previous price.
+        while (!s.empty() && s.top().first <= price) {
+            current_span += s.top().second;
+            s.pop();
         }
         
-        // Push the current price and its calculated total span
-        st.push({price, span});
+        // Push the current price and its calculated span onto the stack
+        s.push({price, current_span});
         
-        return span;
+        return current_span;
     }
 };
-
-/**
- * Your StockSpanner object will be instantiated and called as such:
- * StockSpanner* obj = new StockSpanner();
- * int param_1 = obj->next(price);
- */
-
-/**
- * Your StockSpanner object will be instantiated and called as such:
- * StockSpanner* obj = new StockSpanner();
- * int param_1 = obj->next(price);
- */
