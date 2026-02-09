@@ -3,7 +3,7 @@
 class Solution {
 public:
     int carFleet(int target, vector<int>& position, vector<int>& speed) {
-        int n = position.size();
+        int n = speed.size();
         vector<vector<int>> cars(n, vector<int>(2));
         for (int i = 0; i < n; i++) {
             cars[i][0] = position[i];
