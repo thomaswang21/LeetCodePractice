@@ -7,8 +7,7 @@ public:
         }
         for(int i=0;i<nums.size();i++){
             int num=target-nums[i];
-            if(hash.count(num)&&hash[num]!=i)return{hash[num],i};
-
+            if(hash.count(num)&&hash[num]!=i)return {i,hash[num]};
         }
         return{};
     }
