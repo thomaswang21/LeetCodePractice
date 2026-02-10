@@ -2,7 +2,7 @@ class NumArray {
 public:
     vector<int>preSum;
     NumArray(vector<int>& nums) {
-        preSum.resize(nums.size()+1,0);
+        preSum.resize(nums.size()+1);
         for(int i=1;i<preSum.size();i++){
             preSum[i]=nums[i-1]+preSum[i-1];
         }
