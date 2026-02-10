@@ -1,43 +1,17 @@
-#include <vector>
-
-using namespace std;
-
 class Solution {
 public:
     vector<vector<int>> generateMatrix(int n) {
-        // Initialize an n x n matrix with zeros
-        vector<vector<int>> matrix(n, vector<int>(n));
-        
-        int top = 0, bottom = n - 1;
-        int left = 0, right = n - 1;
-        int num = 1;
-        
-        while (num <= n * n) {
-            // 1. Fill Right: across the top row
-            for (int i = left; i <= right; ++i) {
-                matrix[top][i] = num++;
+        vector<vector<int>> res(n, vector<int>(n));
+        int dx[] = {0, 1, 0, -1}, dy[] = {1, 0, -1, 0};
+        for (int i = 1, x = 0, y = 0, d = 0; i <= n * n; i ++) {
+            res[x][y] = i;
+            int a = x + dx[d], b = y + dy[d];
+            if (a < 0 || a >= n || b < 0 || b >= n || res[a][b]) {
+                d = (d + 1) % 4;
+                a = x + dx[d], b = y + dy[d];
             }
-            top++;
-            
-            // 2. Fill Down: down the right column
-            for (int i = top; i <= bottom; ++i) {
-                matrix[i][right] = num++;
-            }
-            right--;
-            
-            // 3. Fill Left: across the bottom row
-            for (int i = right; i >= left; --i) {
-                matrix[bottom][i] = num++;
-            }
-            bottom--;
-            
-            // 4. Fill Up: up the left column
-            for (int i = bottom; i >= top; --i) {
-                matrix[i][left] = num++;
-            }
-            left++;
+            x = a, y = b;
         }
-        
-        return matrix;
+        return res;
     }
 };
