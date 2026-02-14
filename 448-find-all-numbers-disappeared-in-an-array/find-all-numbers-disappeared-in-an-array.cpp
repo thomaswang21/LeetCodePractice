@@ -8,7 +8,7 @@ public:
             temp.insert(x);
         }
         for(int i=1; i<=n;i++){
-            if(temp.find(i)==temp.end()){
+            if(!temp.count(i)){
                 ans.push_back(i);
             }
         }
