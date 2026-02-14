@@ -17,6 +17,10 @@ public:
                 left++;
             }
         }
-        return res == INT_MAX ? 0 : res;
+        if (res == INT_MAX) {
+    return 0;
+}
+return res;
+
     }
 };
