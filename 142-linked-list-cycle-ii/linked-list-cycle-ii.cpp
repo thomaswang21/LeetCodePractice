@@ -3,7 +3,7 @@ public:
     ListNode *detectCycle(ListNode *head) {
         ListNode *fast, *slow;
         fast = slow = head;
-        while (fast != nullptr && fast->next != nullptr) {
+        while (fast  && fast->next) {
             fast = fast->next->next;
             slow = slow->next;
             if (fast == slow) break;
