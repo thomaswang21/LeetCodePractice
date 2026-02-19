@@ -12,7 +12,8 @@ class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
         if(!head)return NULL;
-        auto a=head, b=head->next;
+        auto a=head;
+        auto b=head->next;
         while(b){
             auto c=b->next;
             b->next=a;
@@ -21,5 +22,6 @@ public:
         }
         head->next=NULL;
         return a;
+
     }
 };
