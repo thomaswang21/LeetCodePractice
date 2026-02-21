@@ -13,7 +13,7 @@ public:
         while(!heap.empty()){
             int cnt = heap.top().first;
             char ch = heap.top().second;
-            for (int i = 1; i <= cnt; i++) {
+            for (int i = 0; i < cnt; i++) {
                 ans += ch;
             }
             heap.pop();
