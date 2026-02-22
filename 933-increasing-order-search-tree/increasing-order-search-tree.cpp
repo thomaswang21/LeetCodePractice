@@ -6,7 +6,9 @@ public:
         if (!root) return;
         dfs(root->left);
 
-        tail = tail->right = root;
+        tail->right = root;
+tail = root;
+
         root->left = NULL;
 
         dfs(root->right);
