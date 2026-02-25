@@ -1,20 +1,23 @@
+
+#include <vector>
+using namespace std;
+
 class NumArray {
+private:
+    vector<int> prefix; // 前缀和数组
 public:
-    vector<int>preSum;
+    // 构造函数：计算前缀和
     NumArray(vector<int>& nums) {
-        preSum.resize(nums.size()+1,0);
-        for(int i=1;i<preSum.size();i++){
-            preSum[i]=nums[i-1]+preSum[i-1];
+        int n = nums.size();
+        prefix.resize(n + 1, 0);
+        for (int i = 0; i < n; i++) {
+            prefix[i + 1] = prefix[i] + nums[i]; // prefix[i+1] 表示前 i 个元素之和
         }
     }
-    
+
+    // 查询区间和
     int sumRange(int left, int right) {
-        return preSum[right+1]-preSum[left];
+        return prefix[right + 1] - prefix[left];
     }
 };
 
-/**
- * Your NumArray object will be instantiated and called as such:
- * NumArray* obj = new NumArray(nums);
- * int param_1 = obj->sumRange(left,right);
- */
