@@ -1,15 +1,8 @@
 class Solution {
-private:
-    bool ok = true;
-    vector<bool> color;
-    vector<bool> visited;
-
 public:
     bool possibleBipartition(int n, vector<vector<int>>& dislikes) {
-        // 图节点编号从 1 开始
-        color.resize(n + 2);
+        color.resize(n + 1);
         visited.resize(n + 1);
-        // 转化成邻接表表示图结构
         vector<vector<int>> graph = buildGraph(n, dislikes);
 
         for (int v = 1; v <= n; v++) {
@@ -21,32 +14,33 @@ public:
     }
 
 private:
-    // 建图函数
+    bool ok = true;                 // 图是否可以二分
+    vector<bool> color;             // 节点颜色
+    vector<bool> visited;           // 是否访问过
+
+    // 构建邻接表（无向图）
     vector<vector<int>> buildGraph(int n, vector<vector<int>>& dislikes) {
-        // 图节点编号为 1...n
         vector<vector<int>> graph(n + 1);
-        for (const auto& edge : dislikes) {
-            int v = edge[1];
-            int w = edge[0];
-            // 「无向图」相当于「双向图」
-            // v -> w
+        for (auto &edge : dislikes) {
+            int v = edge[0];
+            int w = edge[1];
             graph[v].push_back(w);
-            // w -> v
-            graph[w].push_back(v);
+            graph[w].push_back(v);   // 无向边
         }
         return graph;
     }
 
-    // 和之前判定二分图的 traverse 函数完全相同
+    // DFS 遍历并染色
     void traverse(const vector<vector<int>>& graph, int v) {
-        if (!ok) return;
+        if (!ok) return;            // 一旦发现冲突，立即停止
         visited[v] = true;
+
         for (int w : graph[v]) {
             if (!visited[w]) {
-                color[w] = !color[v];
-                traverse(graph, w);
+                color[w] = !color[v];   // 相邻节点染相反颜色
+                traverse(graph, w);     // 正确递归调用
             } else {
-                if (color[w] == color[v]) {
+                if (color[w] == color[v]) {  // 相邻节点颜色相同 -> 冲突
                     ok = false;
                 }
             }
