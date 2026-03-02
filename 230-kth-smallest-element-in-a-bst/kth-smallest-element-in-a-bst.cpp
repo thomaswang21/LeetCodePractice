@@ -13,7 +13,7 @@ class Solution {
 public:
     int k, ans;
     int kthSmallest(TreeNode* root, int _k) {
-       
+       if(!root)return 0;
         k=_k;
         dfs(root);
         return ans;
