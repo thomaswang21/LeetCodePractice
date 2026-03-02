@@ -13,7 +13,7 @@ class Solution {
 public:
     vector<int>ans;
     vector<int> preorderTraversal(TreeNode* root) {
-        
+        if(!root)return {};
         dfs(root);
         return ans;
     }
