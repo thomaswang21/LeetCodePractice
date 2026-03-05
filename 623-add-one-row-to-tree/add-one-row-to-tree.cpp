@@ -1,29 +1,48 @@
 class Solution {
 public:
-    TreeNode* addOneRow(TreeNode* root, int v, int d) {
-        if (d == 1) {
-            auto cur = new TreeNode(v);
-            cur->left = root;
-            return cur;
-        }
-        queue<TreeNode*> q;
-        q.push(root);
-        for (int i = 0; i < d - 2; i ++ ) {
-            for (int j = q.size(); j; j -- ) {
-                auto t = q.front();
-                q.pop();
-                if (t->left) q.push(t->left);
-                if (t->right) q.push(t->right);
-            }
+    TreeNode* addOneRow(TreeNode* root, int val, int depth) {
+        // 如果深度为1，新建根节点
+        if (depth == 1) {
+            TreeNode* newRoot = new TreeNode(val);
+            newRoot->left = root;
+            return newRoot;
         }
 
-        while (q.size()) {
-            auto t = q.front();
-            q.pop();
-            auto left = new TreeNode(v), right = new TreeNode(v);
-            left->left = t->left, right->right = t->right;
-            t->left = left, t->right = right;
+        // BFS 层序遍历
+        queue<TreeNode*> q;
+        q.push(root);
+        int currentDepth = 1;
+
+        while (!q.empty()) {
+            int size = q.size();
+            if (currentDepth == depth - 1) {
+                // 到达目标层，开始插入新节点
+                for (int i = 0; i < size; i++) {
+                    TreeNode* node = q.front();
+                    q.pop();
+
+                    TreeNode* oldLeft = node->left;
+                    TreeNode* oldRight = node->right;
+
+                    node->left = new TreeNode(val);
+                    node->left->left = oldLeft;
+
+                    node->right = new TreeNode(val);
+                    node->right->right = oldRight;
+                }
+                break;
+            }
+
+            // 否则继续向下遍历
+            for (int i = 0; i < size; i++) {
+                TreeNode* node = q.front();
+                q.pop();
+                if (node->left != nullptr) q.push(node->left);
+                if (node->right != nullptr) q.push(node->right);
+            }
+            currentDepth++;
         }
+
         return root;
     }
 };
