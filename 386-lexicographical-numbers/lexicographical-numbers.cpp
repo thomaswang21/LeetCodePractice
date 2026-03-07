@@ -1,27 +1,23 @@
-#include <vector>
+
 
 class Solution {
-
-    std::vector<int> res;
-
 public:
-    std::vector<int> lexicalOrder(int n) {
-        // 总共有 9 棵多叉树，从 1 开始
-        for (int i = 1; i < 10; i++) {
-            traverse(i, n);
+    vector<int> lexicalOrder(int n) {
+        vector<int> res;
+        int cur = 1;
+        for (int i = 0; i < n; i++) {
+            res.push_back(cur);
+            if (cur * 10 <= n) {
+                // 若能往下扩展，则乘10
+                cur *= 10;
+            } else {
+                // 否则回退
+                if (cur >= n) cur /= 10;
+                cur += 1;
+                while (cur % 10 == 0) cur /= 10;
+            }
         }
         return res;
     }
-
-    // 多叉树遍历框架，前序位置收集所有小于 n 的节点
-    void traverse(int root, int n) {
-        if (root > n) {
-            return;
-        }
-        res.push_back(root);
-
-        for (int child = root * 10; child < root * 10 + 10; child++) {
-            traverse(child, n);
-        }
-    }
 };
+
