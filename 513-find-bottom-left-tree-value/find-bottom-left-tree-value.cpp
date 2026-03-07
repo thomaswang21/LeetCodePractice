@@ -1,34 +1,26 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
- */
+
+
 class Solution {
 public:
     int findBottomLeftValue(TreeNode* root) {
-        queue<TreeNode*>q;
+        // 队列用于层序遍历
+        queue<TreeNode*> q;
         q.push(root);
-        int res;
-        while(q.size())
-        {
-            int len=q.size();
-            res=q.front()->val;//每一层的第一个节点
-            while(len--)
-            {
-                auto t=q.front();
-                q.pop();
-                if(t->left) q.push(t->left);
-                if(t->right) q.push(t->right);
-            }
+        int ans = root->val; // 初始化答案为根节点值
 
+        while (!q.empty()) {
+            int size = q.size(); // 当前层节点数
+            for (int i = 0; i < size; i++) {
+                TreeNode* node = q.front();
+                q.pop();
+                // 当前层第一个节点更新答案
+                if (i == 0) ans = node->val;
+                // 先左后右入队
+                if (node->left) q.push(node->left);
+                if (node->right) q.push(node->right);
+            }
         }
-        return res;
+        return ans;
     }
 };
 
