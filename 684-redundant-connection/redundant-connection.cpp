@@ -1,61 +1,44 @@
-#include <vector>
-using namespace std;
+
 
 class Solution {
 public:
+    // 并查集父节点数组
+    vector<int> parent;
+
+    // 查找函数（带路径压缩）
+    int find(int x) {
+        if (parent[x] != x) {
+            parent[x] = find(parent[x]); // 路径压缩
+        }
+        return parent[x];
+    }
+
+    // 合并函数
+    bool unite(int x, int y) {
+        int px = find(x);
+        int py = find(y);
+        if (px == py) {
+            return false; // 如果已经在同一集合中，说明形成环
+        }
+        parent[py] = px; // 合并集合
+        return true;
+    }
+
     vector<int> findRedundantConnection(vector<vector<int>>& edges) {
         int n = edges.size();
-        UF uf(n + 1); // 注意：节点编号从 1 开始，所以要 n+1
+        parent.resize(n + 1);
+        for (int i = 1; i <= n; i++) {
+            parent[i] = i; // 初始化父节点
+        }
 
-        for (const auto& edge : edges) {
+        for (auto& edge : edges) {
             int u = edge[0];
             int v = edge[1];
-            if (uf.connected(u, v)) {
-                return edge; // 发现环，返回当前边
+            if (!unite(u, v)) {
+                return edge; // 找到形成环的边
             }
-            uf.unionNodes(u, v);
         }
         return {};
     }
-
-private:
-    class UF {
-    public:
-        vector<int> parent;
-        vector<int> size;
-
-        UF(int n) {
-            parent = vector<int>(n);
-            size = vector<int>(n, 1);
-            for (int i = 0; i < n; ++i) {
-                parent[i] = i;
-            }
-        }
-
-        int find(int x) {
-            while (parent[x] != x) {
-                parent[x] = parent[parent[x]]; // 路径压缩
-                x = parent[x];
-            }
-            return x;
-        }
-
-        bool connected(int p, int q) {
-            return find(p) == find(q);
-        }
-
-        void unionNodes(int p, int q) {
-            int rootP = find(p);
-            int rootQ = find(q);
-            if (rootP == rootQ) return;
-
-            if (size[rootP] > size[rootQ]) {
-                parent[rootQ] = rootP;
-                size[rootP] += size[rootQ];
-            } else {
-                parent[rootP] = rootQ;
-                size[rootQ] += size[rootP];
-            }
-        }
-    };
 };
+
