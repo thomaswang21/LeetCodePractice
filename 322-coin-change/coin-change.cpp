@@ -1,16 +1,31 @@
+
 class Solution {
 public:
-    int inf=100000000;
     int coinChange(vector<int>& coins, int amount) {
-        vector<int>f(amount+1, inf);
-        f[0]=0;
-        for(int i=0; i<coins.size();i++){
-            for(int j=coins[i];j<=amount;j++){
-                f[j]=min(f[j], f[j-coins[i]]+1);
+        // 创建 dp 数组，大小为 amount + 1
+        vector<int> dp(amount + 1, amount + 1);
+        dp[0] = 0; // 凑成 0 元需要 0 个硬币
 
+        // 遍历所有金额
+        for (int i = 1; i <= amount; i++) {
+            // 遍历每个硬币
+            for (int coin : coins) {
+                if (i - coin >= 0) {
+                    // 状态转移：选择当前硬币 coin
+                    if (dp[i - coin] + 1 < dp[i]) {
+                        dp[i] = dp[i - coin] + 1;
+                    }
+                }
             }
         }
-        if(f[amount]==inf)f[amount]=-1;
-        return f[amount];
+
+        // 如果无法凑出目标金额，返回 -1
+        if (dp[amount] > amount) {
+            return -1;
+        }
+        return dp[amount];
     }
 };
+
+
+
