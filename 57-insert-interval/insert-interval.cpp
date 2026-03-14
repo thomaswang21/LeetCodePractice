@@ -21,7 +21,7 @@ public:
         res.push_back(newInterval);
 
         // 3. 右边不重叠
-        while (i < n) {
+        while (i < n && intervals[i][0] > newInterval[1]) {
             res.push_back(intervals[i]);
             i++;
         }
