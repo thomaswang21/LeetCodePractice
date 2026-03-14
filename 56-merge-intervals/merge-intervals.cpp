@@ -1,23 +1,37 @@
+
+
 class Solution {
 public:
-    vector<vector<int>> merge(vector<vector<int>>& a) {
-        vector<vector<int>> res;
-        if(a.empty()) return res;
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        // 如果区间为空，直接返回空结果
+        if (intervals.empty()) return {};
 
-        sort(a.begin(), a.end()); // 按左端点排序
-        int l = a[0][0], r = a[0][1];
+        // 按区间起点排序
+        sort(intervals.begin(), intervals.end());
 
-        for(int i = 1; i < a.size(); i++){
-            if(a[i][0] > r){
-                res.push_back({l, r}); // 推入上一个区间
-                l = a[i][0];
-                r = a[i][1];
+        // 结果数组
+        vector<vector<int>> merged;
+        // 将第一个区间加入结果
+        merged.push_back(intervals[0]);
+
+        // 遍历剩余区间
+        for (int i = 1; i < intervals.size(); i++) {
+            // 获取结果中最后一个区间的引用
+            vector<int>& last = merged.back();
+
+            // 如果当前区间的起点 <= 上一个区间的终点，说明重叠
+            if (intervals[i][0] <= last[1]) {
+                // 更新终点为两者中较大的那个
+                last[1] = max(last[1], intervals[i][1]);
             } else {
-                r = max(r, a[i][1]); // 合并区间
+                // 否则直接加入结果
+                merged.push_back(intervals[i]);
             }
         }
 
-        res.push_back({l, r}); // 循环结束后推入最后一个区间
-        return res;
+        return merged;
     }
 };
+
+
+
