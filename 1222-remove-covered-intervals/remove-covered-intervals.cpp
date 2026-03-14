@@ -3,6 +3,7 @@
 class Solution {
 public:
     int removeCoveredIntervals(vector<vector<int>>& intervals) {
+        if(intervals.empty())return 0;
         // 按左端点升序，右端点降序排序
         sort(intervals.begin(), intervals.end(), [](const vector<int>& a, const vector<int>& b){
             if (a[0] == b[0]) return a[1] > b[1]; // 左端点相同则右端点大的在前
