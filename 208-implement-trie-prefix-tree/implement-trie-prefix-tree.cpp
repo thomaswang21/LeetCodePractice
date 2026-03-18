@@ -4,7 +4,7 @@ public:
     bool isEnd; // 是否为单词结尾
 
     TrieNode() {
-        for (int i = 0; i < 26; i++) children[i] = nullptr;
+        for( int i = 0; i < 26; i++) children[i] = nullptr;
         isEnd = false;
     }
 };
