@@ -24,15 +24,17 @@ public:
             
             // 验证 1: 出度检查 (Outdegree Check)
             // 名人不能认识任何人。如果 candidate 认识 i，返回 -1
+             if (!knows(i, candidate)) {
+                return -1;
+            }
+            
             if (knows(candidate, i)) {
                 return -1;
             }
             
             // 验证 2: 入度检查 (Indegree Check)
             // 所有人必须认识名人。如果 i 不认识 candidate，返回 -1
-            if (!knows(i, candidate)) {
-                return -1;
-            }
+           
         }
         
         return candidate;
