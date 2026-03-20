@@ -24,7 +24,7 @@ private:
         for (auto &edge : dislikes) {
             int v = edge[0];
             int w = edge[1];
-            graph[v].push_back(w);
+            graph[v].push_back(w); 
             graph[w].push_back(v);   // 无向边
         }
         return graph;
@@ -33,10 +33,10 @@ private:
     // DFS 遍历并染色
     void traverse(const vector<vector<int>>& graph, int v) {
         if (!ok) return;            // 一旦发现冲突，立即停止
-        visited[v] = true;
+        visited[v] = true; 
 
         for (int w : graph[v]) {
-            if (!visited[w]) {
+            if (!visited[w]) { 
                 color[w] = !color[v];   // 相邻节点染相反颜色
                 traverse(graph, w);     // 正确递归调用
             } else {
