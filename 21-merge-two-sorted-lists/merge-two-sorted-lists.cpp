@@ -30,9 +30,8 @@ public:
         if(list1) p->next = list1;
         if(list2) p->next = list2;
         
-        // 5. 释放自己 new 出来的 dummy 节点内存（好习惯），并返回真正的头节点
-        ListNode* head = dummy->next;
-        delete dummy; 
-        return head;
+        
+        return dummy->next; 
+        
     }
 };
