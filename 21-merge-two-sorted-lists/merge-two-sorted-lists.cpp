@@ -10,24 +10,29 @@
  */
 class Solution {
 public:
-    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
-        auto dummy=new ListNode(-1);
-        auto p=dummy;
-
-        while(l1&&l2){
-            if(l1->val<l2->val){
-                p->next=l1;
-                l1=l1->next;
-                p=p->next;
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        // 1. 修正语法：实例化 ListNode 对象，并用 dummy 记住头节点位置
+        ListNode* dummy = new ListNode(-1); 
+        ListNode* p = dummy; // 用 p 来往后遍历
+        
+        while(list1 && list2){
+            if(list1->val < list2->val){
+                p->next = list1;
+                list1 = list1->next; // 2. 必须让 list1 往后移动
             }else{
-                p->next=l2;
-                l2=l2->next;
-                p=p->next;
+                p->next = list2;
+                list2 = list2->next; // 2. 必须让 list2 往后移动
             }
-            
+            p = p->next; // 3. p 也必须往后移动，准备拼接下一个节点
         }
-        if(l1)p->next=l1;
-            if(l2)p->next=l2;
-        return dummy->next;
+        
+        // 4. 修正指针判断语法，直接用 if(list1) 即可
+        if(list1) p->next = list1;
+        if(list2) p->next = list2;
+        
+        // 5. 释放自己 new 出来的 dummy 节点内存（好习惯），并返回真正的头节点
+        ListNode* head = dummy->next;
+        delete dummy; 
+        return head;
     }
 };
