@@ -14,8 +14,10 @@ public:
         if(!head)return NULL;
         ListNode* a=head;
         ListNode* b=head->next;
+
         while(b){
             auto c=b->next;
+
             b->next=a;
             a=b;
             b=c;
