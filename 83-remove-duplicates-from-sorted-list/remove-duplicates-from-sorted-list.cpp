@@ -11,7 +11,7 @@
 class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
-        if(!head)return NULL;
+        if(!head) return NULL;
         auto a=head;
         while(a->next){
             if(a->next->val==a->val)a->next=a->next->next;
