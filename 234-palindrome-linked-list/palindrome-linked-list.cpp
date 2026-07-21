@@ -17,7 +17,7 @@ public:
         bool result = true;
         
         // 加入 !result 提前退出的优化，提升效率
-        while (q != nullptr && result) {
+        while (q != nullptr ) {
             if (p->val != q->val) {
                 result = false;
             }
