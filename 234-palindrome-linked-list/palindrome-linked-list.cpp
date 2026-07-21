@@ -6,7 +6,7 @@ public:
         }
         
         // 1. 找到中点
-        ListNode* mid = findMiddle(head);
+        auto mid = findMiddle(head);
         
         // 2. 反转后半部分（调用你第二题的写法）
         ListNode* last = reverse(mid->next);
