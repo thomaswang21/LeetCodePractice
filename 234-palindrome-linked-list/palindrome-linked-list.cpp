@@ -14,12 +14,11 @@ public:
         // 3. 比对前后两半
         ListNode* p = head;
         ListNode* q = last;
-        bool result = true;
         
         // 加入 !result 提前退出的优化，提升效率
         while (q != nullptr ) {
             if (p->val != q->val) {
-                result = false;
+                return false;
             }
             p = p->next;
             q = q->next;
@@ -28,7 +27,7 @@ public:
         // 4. 还原链表（保持好习惯，不破坏原数据结构）
         mid->next = reverse(last);
         
-        return result;
+        return true;
     }
 
     ListNode* findMiddle(ListNode* head) {
