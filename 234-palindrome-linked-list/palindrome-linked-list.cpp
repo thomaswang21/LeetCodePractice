@@ -1,61 +1,54 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
-        if (head == nullptr || head->next == nullptr) {
+        if(!head || !head->next){
             return true;
         }
-        
-        // 1. 找到中点
-        auto mid = findMiddle(head);
-        
-        // 2. 反转后半部分（调用你第二题的写法）
-        ListNode* last = reverse(mid->next);
-        
-        // 3. 比对前后两半
-        ListNode* p = head;
-        ListNode* q = last;
-        
-        // 加入 !result 提前退出的优化，提升效率
-        while (q != nullptr ) {
-            if (p->val != q->val) {
+        auto mid = findMid(head);
+        auto last = reverse(mid->next);
+        auto p = head;
+        auto q= last;
+        while(q != NULL){
+            if(p->val != q->val){
                 return false;
             }
             p = p->next;
             q = q->next;
+
         }
-        
-        // 4. 还原链表（保持好习惯，不破坏原数据结构）
-        
         return true;
     }
-
-    ListNode* findMiddle(ListNode* head) {
-        ListNode* slow = head;
-        ListNode* fast = head->next;
-        while (fast != nullptr && fast->next != nullptr) {
+    ListNode* findMid(ListNode*head){
+        auto slow = head;
+        auto fast = head->next;
+        while(fast != nullptr && fast->next != nullptr){
             slow = slow->next;
             fast = fast->next->next;
         }
         return slow;
     }
-
-    // 这里完全采用你第二题的逻辑
-    ListNode* reverse(ListNode* head) {
-        if (!head) return nullptr; // 必须加特判，否则 head->next 会报错
-        
-        ListNode* a = head;
-        ListNode* b = head->next;
-
-        while (b != nullptr) {
-            ListNode* c = b->next;
+    ListNode* reverse(ListNode*head){
+        if(!head)return head;
+        auto a = head;
+        auto b = head->next;
+        while(b){
+            auto c = b->next;
             b->next = a;
             a = b;
             b = c;
+
         }
-        
-        // 致命补刀：把原头节点（现尾节点）的 next 剪断，防止死循环
-        head->next = nullptr; 
-        
+        head->next = nullptr;
         return a;
     }
 };
