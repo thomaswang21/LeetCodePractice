@@ -25,7 +25,6 @@ public:
         }
         
         // 4. 还原链表（保持好习惯，不破坏原数据结构）
-        mid->next = reverse(last);
         
         return true;
     }
