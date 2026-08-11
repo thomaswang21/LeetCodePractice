@@ -11,6 +11,7 @@
 class Solution {
 public:
     ListNode* reverse(ListNode*head){
+        if(!head)return head;
             auto a=head, b=head->next;
             while(b){
                 auto c=b->next;
