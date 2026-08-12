@@ -10,14 +10,17 @@
  */
 class Solution {
 public:
-    ListNode* removeNthFromEnd(ListNode* head, int k) {
-        auto dummy=new ListNode(-1);
-        dummy->next=head;
-        int n=0;
-        for(auto p=dummy;p;p=p->next)n++;
-        auto d=dummy;
-        for(int i=0;i<n-k-1;i++)d=d->next;
-        d->next=d->next->next;
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        if(!head) return NULL;
+        auto dummy = new ListNode(-1);
+        dummy->next = head;
+        int k = 0;
+        for(auto p = dummy; p ;p=p->next) k++;
+        auto d = dummy;
+        for(int i = 0; i < k-n-1; i++){
+            d = d->next;
+        }
+        d->next = d->next->next;
         return dummy->next;
     }
 };
