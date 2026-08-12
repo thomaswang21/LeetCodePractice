@@ -20,7 +20,7 @@ public:
         auto*dummy=new ListNode(-1);
         auto*p=dummy;
         priority_queue<ListNode*, vector<ListNode*>,cmp>pq;
-        for(ListNode*head:lists){
+        for(auto head:lists){
            if(head!=nullptr){
             pq.push(head);
            }
