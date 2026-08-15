@@ -17,13 +17,15 @@ public:
             
             // 1. 贴着上边界，从左到右填充
             for (int i = left; i <= right; ++i) {
-                matrix[top][i] = num++;
+                matrix[top][i] = num;
+                num++;
             }
             top++; // 上边界填充完后，上边界向下收缩一行
             
             // 2. 贴着右边界，从上到下填充
             for (int i = top; i <= bottom; ++i) {
-                matrix[i][right] = num++;
+                matrix[i][right] = num;
+                num++;
             }
             right--; // 右边界填充完后，右边界向左收缩一列
             
@@ -31,7 +33,8 @@ public:
             if (top <= bottom) {
                 // 3. 贴着下边界，从右到左填充
                 for (int i = right; i >= left; --i) {
-                    matrix[bottom][i] = num++;
+                    matrix[bottom][i] = num;
+                    num++;
                 }
                 bottom--; // 下边界填充完后，下边界向上收缩一行
             }
@@ -40,7 +43,8 @@ public:
             if (left <= right) {
                 // 4. 贴着左边界，从下到上填充
                 for (int i = bottom; i >= top; --i) {
-                    matrix[i][left] = num++;
+                    matrix[i][left] = num;
+                    num++;
                 }
                 left++; // 左边界填充完后，左边界向右收缩一列
             }
