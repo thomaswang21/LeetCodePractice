@@ -18,7 +18,7 @@ public:
         auto last = reverse(mid->next);
         auto p = head;
         auto q= last;
-        while(q != NULL){
+        while(p != NULL &&q != NULL ){
             if(p->val != q->val){
                 return false;
             }
