@@ -15,9 +15,11 @@ public:
         auto dummy = new ListNode(-1);
         dummy->next = head;
         int k = 0;
-        for(auto p = dummy; p ;p=p->next) k++;
+        for(auto p = dummy; p; p=p->next){
+            k++;
+        }
         auto d = dummy;
-        for(int i = 0; i < k-n-1; i++){
+        for(int i =0; i< k-n-1;i++){
             d = d->next;
         }
         d->next = d->next->next;
