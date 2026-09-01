@@ -15,7 +15,7 @@ public:
         auto a = head;
         while(a->next){
             if(a->val == a->next->val){
-                a->next = a->next->next;
+                a->next=a->next->next;
             }else{
                 a = a->next;
             }
