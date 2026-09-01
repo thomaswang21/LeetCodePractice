@@ -14,15 +14,17 @@ public:
         if(!head) return NULL;
         auto dummy = new ListNode(-1);
         dummy->next = head;
-        int k = 0;
-        for(auto p = dummy; p; p=p->next){
-            k++;
+        auto p = dummy;
+        int length = 0;
+        while(p->next){
+            p = p->next;
+            length++;
         }
-        auto d = dummy;
-        for(int i =0; i< k-n-1;i++){
-            d = d->next;
+        p = dummy;
+        for(int i = 0; i < length-n; i++){
+            p = p->next;
         }
-        d->next = d->next->next;
+        p->next = p->next->next;
         return dummy->next;
     }
 };
