@@ -17,7 +17,7 @@ public:
         auto p = dummy;
         while(p->next && p->next->next){
             auto q = p->next->next;
-            while(q && q->val == p->next->val)q = q->next;
+            while(q && q->val == p->next->val) q = q->next;
             if(p->next->next == q)p = p->next;
             else p->next = q;
         }
