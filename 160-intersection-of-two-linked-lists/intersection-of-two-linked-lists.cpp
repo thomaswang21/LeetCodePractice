@@ -11,7 +11,7 @@ public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
         auto a = headA;
         auto b = headB;
-        while(a!=b){
+        while(a != b){
             if(a == NULL){
                 a = headB;
             }else{
