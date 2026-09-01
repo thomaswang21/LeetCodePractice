@@ -1,23 +1,34 @@
 class Solution {
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
-        vector<int>res;
-        int n=matrix.size();
-        int m=matrix[0].size();
-
-        int dx[]={0,1,0,-1},dy[]={1,0,-1,0};
-        vector<vector<bool>>st(n, vector<bool>(m));
-        for(int i=0, x=0, y=0, d=0; i<n*m;i++){
-            res.push_back(matrix[x][y]);
-            st[x][y]=true;
-
-            int a=x+dx[d], b=y+dy[d];
-            if(a<0||a>=n||b<0||b>=m||st[a][b]){
-                d=(d+1)%4;
-                a=x+dx[d], b=y+dy[d];
+        vector<int> result;
+        if(matrix.empty() || matrix[0].empty()) return result;
+        int top = 0;
+        int bottom = matrix.size()-1;
+        int left = 0;
+        int right = matrix[0].size()-1;
+        while(top <= bottom && left <=right){
+            for(int i = left; i <= right; i++){
+                result.push_back(matrix[top][i]);
             }
-            x=a, y=b;
+            top++;
+            for(int i = top; i <= bottom; i++){
+                result.push_back(matrix[i][right]);
+            }
+            right--;
+            if(top <= bottom){
+                for(int i = right; i >= left; i--){
+                    result.push_back(matrix[bottom][i]);
+                }
+                bottom--;
+            }
+            if(left <= right){
+                for(int i = bottom; i >= top; i--){
+                    result.push_back(matrix[i][left]);
+                }
+                left++;
+            }
         }
-        return res;
+        return result;
     }
 };
