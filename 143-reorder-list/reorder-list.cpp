@@ -11,24 +11,24 @@
 class Solution {
 public:
     void reorderList(ListNode* head) {
-        stack<ListNode*>stk;
-        auto p=head;
-        while(p!=NULL){
+        stack<ListNode*> stk;
+        auto p =head;
+        while(p != NULL){
             stk.push(p);
-            p=p->next;
+            p = p->next;
         }
-        p=head;
+        p = head;
         while(!stk.empty()){
-            ListNode*lastnode=stk.top();
+            ListNode*lastnode = stk.top();
             stk.pop();
-            ListNode*next=p->next;
-            if(lastnode==next||lastnode->next==next){
-                lastnode->next=nullptr;
+            ListNode*next = p->next;
+            if(lastnode == next || lastnode->next ==next){
+                lastnode->next = NULL;
                 break;
             }
-            p->next=lastnode;
-            lastnode->next=next;
-            p=next;
+            p->next = lastnode;
+            lastnode->next = next;
+            p = next;
         }
     }
 };
