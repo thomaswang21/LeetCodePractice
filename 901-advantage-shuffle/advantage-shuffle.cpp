@@ -2,7 +2,7 @@ class Solution {
 public:
     vector<int> advantageCount(vector<int>& nums1, vector<int>& nums2) {
         int n=nums1.size();
-        priority_queue<pair<int,int>,vector<pair<int,int>>,less<>>maxpq;
+        priority_queue<pair<int,int>>maxpq;
         for(int i=0; i<n;i++){
             maxpq.push({nums2[i],i});
         }
