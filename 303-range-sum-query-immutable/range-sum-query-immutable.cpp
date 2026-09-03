@@ -11,7 +11,7 @@ public:
     }
     
     int sumRange(int left, int right) {
-        return prefixSums[right + 1] - prefixSums[left];
+        return prefixSums[right+1] - prefixSums[left];
     }
 };
 
