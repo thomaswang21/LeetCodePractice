@@ -6,7 +6,7 @@ public:
         string s = "";
         while(i < word1.size() || j < word2.size()){
             if(i < word1.size()){
-                s += word1[i];
+                s +=word1[i];
                 i++;
             }
             if(j < word2.size()){
