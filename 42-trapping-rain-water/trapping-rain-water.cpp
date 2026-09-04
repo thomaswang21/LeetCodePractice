@@ -21,7 +21,7 @@ public:
                 }
                 left++;
             } else {
-                if (height[right] >= right_max) {
+                if (height[right] > right_max) {
                     right_max = height[right]; // Update max on the right
                 } else {
                     trapped_water += right_max - height[right]; // Add water
