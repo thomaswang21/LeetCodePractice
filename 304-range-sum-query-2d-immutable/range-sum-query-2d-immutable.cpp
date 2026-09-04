@@ -1,5 +1,4 @@
 class NumMatrix {
-
     vector<vector<int>> A;
     int m, n;
 
@@ -9,9 +8,11 @@ public:
         n = matrix[0].size();
         A.resize(m+1, vector<int>(n+1, 0));
 
-        for (int i = 1; i <= m; i++) {
-            for (int j = 1; j <= n; j++) {
-                A[i][j] = matrix[i-1][j-1] + A[i-1][j] + A[i][j-1] - A[i-1][j-1];
+        // 按照你的逻辑，循环 0 到 m-1
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                // 你的公式，完全没问题！
+                A[i+1][j+1] = matrix[i][j] + A[i][j+1] + A[i+1][j] - A[i][j];
             }
         }
     }
