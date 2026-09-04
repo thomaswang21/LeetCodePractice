@@ -14,7 +14,7 @@ public:
         while (left < right) {
             // The smaller height determines how much water can be trapped
             if (height[left] < height[right]) {
-                if (height[left] >= left_max) {
+                if (height[left] > left_max) {
                     left_max = height[left]; // Update max on the left
                 } else {
                     trapped_water += left_max - height[left]; // Add water
