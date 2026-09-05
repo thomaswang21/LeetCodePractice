@@ -4,32 +4,32 @@ public:
         int m = mat.size();
         int n = mat[0].size();
         
-        // 1. 构建前缀和数组（大一圈，防止越界）
+        // prefix[i][j] 用于存储从 (0,0) 到 (i-1, j-1) 的子矩阵元素之和
         vector<vector<int>> prefix(m + 1, vector<int>(n + 1, 0));
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                // 完全使用你刚才推导理解的公式
-                prefix[i+1][j+1] = mat[i][j] + prefix[i][j+1] + prefix[i+1][j] - prefix[i][j];
+        
+        // 1. 预计算 2D 前缀和矩阵
+        for (int i = 1; i <= m; ++i) {
+            for (int j = 1; j <= n; ++j) {
+                prefix[i][j] = mat[i-1][j-1] + prefix[i-1][j] + prefix[i][j-1] - prefix[i-1][j-1];
             }
         }
         
-        vector<vector<int>> ans(m, vector<int>(n, 0));
+        vector<vector<int>> answer(m, vector<int>(n, 0));
         
-        // 2. 遍历每个格子，计算它周围一圈的和
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                // 确定目标区域的上下左右边界，并防止越界
+        // 2. 在 O(1) 时间内计算每个中心点的区块和
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                // 确定区块的有效边界
                 int r1 = max(0, i - k);
                 int c1 = max(0, j - k);
                 int r2 = min(m - 1, i + k);
                 int c2 = min(n - 1, j + k);
                 
-                // 套用 sumRegion 公式求这个矩形区域的总和
-                // 注意代入 prefix 数组时，右下角坐标需要 +1
-                ans[i][j] = prefix[r2+1][c2+1] - prefix[r1][c2+1] - prefix[r2+1][c1] + prefix[r1][c1];
+                // 容斥原理：利用前缀和数组快速求出局部子矩阵的面积（和）
+                answer[i][j] = prefix[r2+1][c2+1] - prefix[r1][c2+1] - prefix[r2+1][c1] + prefix[r1][c1];
             }
         }
         
-        return ans;
+        return answer;
     }
 };
