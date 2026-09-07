@@ -1,28 +1,34 @@
+#include <unordered_map>
+#include <string>
+#include <algorithm>
+
 class Solution {
 public:
-    int characterReplacement(string s, int k) {
-        // 使用哈希表代替 vector
-        unordered_map<char, int> map;
+    int characterReplacement(std::string s, int k) {
+        // 使用哈希表记录窗口内每个字符的出现次数
+        std::unordered_map<char, int> countMap;
+        
         int left = 0;
-        int maxCount = 0;
+        int maxCount = 0; // 当前窗口内单个字符出现的最大频次
         int maxLength = 0;
 
         for (int right = 0; right < s.length(); ++right) {
-            // 1. 进窗口：记录字符频率
-            map[s[right]]++;
+            char rightChar = s[right];
+            countMap[rightChar]++;
             
-            // 更新当前窗口内出现次数最多的字符数量
-            maxCount = max(maxCount, map[s[right]]);
+            // 更新当前窗口内字符的最大频次
+            maxCount = std::max(maxCount, countMap[rightChar]);
 
-            // 2. 出窗口：判断是否需要缩小窗口
-            // 窗口总长度 - 主字符数量 > k，说明要把其他字符变为主字符需要的操作超过了 k
+            // 如果当前窗口大小减去最多字符的频次大于 k，说明需要替换的字符过多
+            // 此时需要收缩左边界
             while ((right - left + 1) - maxCount > k) {
-                map[s[left]]--; // 移出左边的字符
+                char leftChar = s[left];
+                countMap[leftChar]--;
                 left++;
             }
 
-            // 3. 更新结果
-            maxLength = max(maxLength, right - left + 1);
+            // 更新最大合法窗口长度
+            maxLength = std::max(maxLength, right - left + 1);
         }
 
         return maxLength;
