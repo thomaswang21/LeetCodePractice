@@ -1,17 +1,26 @@
+#include <vector>
+#include <algorithm>
+#include <climits>
+
+using namespace std;
+
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
-        int l=0, r=1;
-        int maxp=0;
-        while(r<prices.size()){
-            if(prices[l]<prices[r]){
-                int profit=prices[r]-prices[l];
-                maxp=max(maxp, profit);
-            }else{
-                l=r;
+        int min_price = INT_MAX;
+        int max_profit = 0;
+        
+        for (int price : prices) {
+            // Update the lowest price seen so far
+            if (price < min_price) {
+                min_price = price;
+            } 
+            // Calculate profit if we sold today, and update max_profit if it's higher
+            else if (price - min_price > max_profit) {
+                max_profit = price - min_price;
             }
-            r++;
         }
-        return maxp;
+        
+        return max_profit;
     }
 };
