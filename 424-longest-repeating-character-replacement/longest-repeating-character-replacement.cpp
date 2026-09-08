@@ -11,7 +11,7 @@ public:
             countMap[rightChar]++;
             maxCount = max(maxCount, countMap[rightChar]);
 
-            if((right - left +1 ) - maxCount > k){
+            while((right - left +1 ) - maxCount > k){
                 char leftChar = s[left];
                 countMap[leftChar]--;
                 left++;
