@@ -1,6 +1,9 @@
 class Solution {
 public:
     bool checkInclusion(string s1, string s2) {
+        if (s1.empty() || s2.empty() || s1.length() > s2.length()) {
+            return false;
+        }
         unordered_map<char, int> need, window;
         for(char c : s1){
             need[c]++;
