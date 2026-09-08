@@ -1,26 +1,27 @@
 class Solution {
 public:
     int minSubArrayLen(int target, vector<int>& nums) {
-        int left = 0, right = 0;
-        // 维护窗口内元素之和
-        int windowSum = 0;
-        int res = INT_MAX;
-
-        while (right < nums.size()) {
-            // 扩大窗口
-            windowSum += nums[right];
-            right++;
-            while (windowSum >= target && left < right) {
-                // 已经达到 target，缩小窗口，同时更新答案
-                res = min(res, right - left);
-                windowSum -= nums[left];
+        int n = nums.size();
+        int min_length = INT_MAX;
+        int left = 0;
+        int current_sum = 0;
+        
+        for (int right = 0; right < n; ++right) {
+            current_sum += nums[right];
+            
+            // 当子数组的和大于等于目标值时，尝试从左侧缩小窗口
+            while (current_sum >= target) {
+                min_length = min(min_length, right - left + 1);
+                current_sum -= nums[left];
                 left++;
             }
         }
-        if (res == INT_MAX) {
-    return 0;
-}
-return res;
-
+        
+        // 使用 if-else 替代三元运算符
+        if (min_length == INT_MAX) {
+            return 0;
+        }
+        
+        return min_length;
     }
 };
