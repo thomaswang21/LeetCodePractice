@@ -6,7 +6,7 @@ public:
         int maxLength = 0;
         for(int right = 0; right < s.size(); right++){
             char current = s[right];
-            if(hash.count(current) && hash[current] >= left){
+            while(hash.count(current) && hash[current] >= left){
                 left = hash[current] + 1;
             }
             hash[current] = right;
