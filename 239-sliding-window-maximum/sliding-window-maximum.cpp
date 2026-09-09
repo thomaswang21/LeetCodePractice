@@ -11,7 +11,7 @@ public:
         
         for (int i = 0; i < nums.size(); ++i) {
             // 1. 如果队首的索引已经超出了当前滑动窗口的范围，则将其移除
-            if (!dq.empty() && dq.front() < i - k + 1) {
+            while (!dq.empty() && dq.front() < i - k + 1) {
                 dq.pop_front();
             }
             
