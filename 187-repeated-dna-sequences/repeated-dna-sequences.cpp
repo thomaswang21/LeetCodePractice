@@ -8,7 +8,7 @@ public:
         unordered_set<string> repeated;
         
         // Slide a window of exactly length 10 across the string
-        for (int i = 0; i <= s.length() ; i++) {
+        for (int i = 0; i <= s.length() - 9 ; i++) {
             string current_seq = s.substr(i, 10);
             
             // If it's already in 'seen', we found a duplicate
