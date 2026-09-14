@@ -35,6 +35,10 @@ public:
         }
         
         // 如果 max_len 没变过，说明找不到，返回 -1；否则返回 n - max_len
-        return max_len == -1 ? -1 : n - max_len;
+            if (max_len == -1) {
+                return -1;
+            } else {
+                return n - max_len;
+}
     }
 };
