@@ -9,7 +9,7 @@ public:
             char c = s[right];
             hash[c]++;
             maxd = max(maxd, hash[c]);
-            while((right - left +1) - maxd > k){
+           if((right - left +1) - maxd > k){
                 char l = s[left];
                 hash[l]--;
                 left++;
