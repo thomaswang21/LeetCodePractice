@@ -5,11 +5,10 @@ public:
         int left = 0;
         int maxLength = 0;
         for(int right = 0; right < s.size(); right++){
-            char current = s[right];
-            while(hash.count(current) && hash[current] >= left){
-                left = hash[current] + 1;
+            while(hash.count(s[right]) && hash[s[right]] >= left){
+                left = hash[s[right]] + 1;
             }
-            hash[current] = right;
+            hash[s[right]] = right;
             maxLength = max(maxLength, right - left +1);
 
         }
