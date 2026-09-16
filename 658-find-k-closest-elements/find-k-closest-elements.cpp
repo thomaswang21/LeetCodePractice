@@ -10,9 +10,10 @@ public:
         }
         while(k>0)
         {
-            k--;
+            
             ans.push_back(pq.top().second);
             pq.pop();
+            k--;
         }
         sort(ans.begin(),ans.end());
         return ans;
