@@ -21,7 +21,7 @@ public:
         // 把 right 的初始化放进 for 循环里
         int left = 0;
         int valid = 0;         // 记录当前窗口中，已经满足数量要求的字符种类数
-        int min_len = 1e9;     // 记录最小窗口长度
+        int min_len = INT_MAX;     // 记录最小窗口长度
         int min_start = 0;     // 记录最小窗口的起始索引
 
         // 最外层 while 换成 for
@@ -59,7 +59,7 @@ public:
             }
         }
 
-        if (min_len == 1e9) {
+        if (min_len == INT_MAX) {
             return "";
         }
         
