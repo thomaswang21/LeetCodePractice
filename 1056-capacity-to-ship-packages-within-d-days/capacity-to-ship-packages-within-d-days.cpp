@@ -1,28 +1,37 @@
 class Solution {
 public:
-    int shipWithinDays(std::vector<int>& weights, int days) {
-        int left = 0;
-        int right = 0;
+    int shipWithinDays(vector<int>& weights, int days) {
+        int l = 0;
+        int r = 0;
         for (int w : weights) {
-            left = max(left, w);
-            right += w;
+            l = max(l, w); // 最小运载能力至少得能装下最重的那一件货物
+            r += w;        // 最大运载能力是一次性装下所有货物
         }
-        while (left < right) {
-            int mid = left + (right - left) / 2;
+        
+        // 使用标准的 [l, r] 双闭区间二分模板
+        while (l <= r) {
+            int mid = l + (r - l) / 2;
+            
             if (f(weights, mid) <= days) {
-                right = mid;
+                // 当前运载能力 mid 能够按时运完，但我们要找更小的运力
+                // 所以将右边界左移，排除当前值
+                r = mid - 1;
             } else {
-                left = mid + 1;
+                // 当前运载能力 mid 太小，导致耗时超过 days
+                // 必须增加运力，所以左边界右移
+                l = mid + 1;
             }
         }
-        return left;
+        
+        // 寻找“满足条件的最小值”，跳出循环时 l 总是指向这个 Lower Bound
+        return l;
     }
+
+private:
     // 定义：当运载能力为 x 时，需要 f(x) 天运完所有货物
-    // f(x) 随着 x 的增加单调递减
     int f(vector<int>& weights, int x) {
         int days = 0;
         for (int i = 0; i < weights.size(); ) {
-            // 尽可能多装货物
             int cap = x;
             while (i < weights.size()) {
                 if (cap < weights[i]) break;
