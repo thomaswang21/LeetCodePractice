@@ -17,6 +17,6 @@ public:
         }
         
         // 迴圈結束時，l 和 r 會重疊，停留在山峰的索引上
-        return r; 
+        return l; 
     }
 };
