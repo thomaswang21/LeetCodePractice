@@ -1,60 +1,75 @@
-
-// 思路：
-// 1. 首先通过二分查找找到山峰的索引（即最大值所在位置）。
-// 2. 然后在山峰左侧（递增部分）进行一次二分查找。
-// 3. 如果未找到，再在山峰右侧（递减部分）进行一次二分查找。
-// 4. 返回最小的索引，如果都找不到则返回 -1。
+/**
+ * // 这就是 MountainArray 的 API 接口。
+ * // 你不需要实现它，也不需要猜测它的实现
+ * class MountainArray {
+ *   public:
+ *     int get(int index);
+ *     int length();
+ * };
+ */
 
 class Solution {
 public:
-    // 二分查找山峰位置
-    int findPeak(MountainArray &mountainArr) {
-        int left = 0;
-        int right = mountainArr.length() - 1;
-        while (left < right) {
-            int mid = left + (right - left) / 2;
-            int midVal = mountainArr.get(mid);
-            int nextVal = mountainArr.get(mid + 1);
-            if (midVal < nextVal) {
-                left = mid + 1; // 峰值在右边
+    int findInMountainArray(int target, MountainArray &mountainArr) {
+        int n = mountainArr.length();
+        
+        // 第一步：寻找山峰（最大值）的索引
+        int l = 0, r = n - 1;
+        while (l < r) {
+            int mid = l + (r - l) / 2;
+            // 如果 mid 的值小于 mid + 1 的值，说明当前处于“上坡”阶段，山峰在右侧
+            if (mountainArr.get(mid) < mountainArr.get(mid + 1)) {
+                l = mid + 1;
             } else {
-                right = mid; // 峰值在左边或当前位置
+                // 否则说明处于“下坡”阶段，或者 mid 本身就是山峰，山峰在左侧或当前位置
+                r = mid;
             }
         }
-        return left; // left == right 即为峰值索引
+        int peak = l; // 退出循环时 l == r，这就是山峰的坐标
+        
+        // 第二步：在左半部分（严格递增区间）使用我们熟悉的闭区间模板找 target
+        int left_index = searchAscending(target, mountainArr, 0, peak);
+        if (left_index != -1) {
+            // 题目要求返回最小的索引，既然左边找到了，就直接返回，不需要再找右边
+            return left_index; 
+        }
+        
+        // 第三步：如果左边没找到，再去右半部分（严格递减区间）找 target
+        return searchDescending(target, mountainArr, peak + 1, n - 1);
     }
 
-    // 在递增或递减区间进行二分查找
-    int binarySearch(MountainArray &mountainArr, int target, int left, int right, bool ascending) {
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            int midVal = mountainArr.get(mid);
-            if (midVal == target) {
+private:
+    // 熟悉的闭区间二分模板（用于升序数组）
+    int searchAscending(int target, MountainArray &mountainArr, int l, int r) {
+        while (l <= r) {
+            int mid = l + (r - l) / 2;
+            int mid_val = mountainArr.get(mid);
+            
+            if (mid_val == target) {
                 return mid;
-            }
-            if (ascending) {
-                if (midVal < target) {
-                    left = mid + 1;
-                } else {
-                    right = mid - 1;
-                }
+            } else if (mid_val < target) {
+                l = mid + 1; // 升序：当前值太小，往右找
             } else {
-                if (midVal > target) {
-                    left = mid + 1;
-                } else {
-                    right = mid - 1;
-                }
+                r = mid - 1; // 升序：当前值太大，往左找
             }
         }
         return -1;
     }
-
-    int findInMountainArray(int target, MountainArray &mountainArr) {
-        int peak = findPeak(mountainArr); // 找到山峰索引
-        int index = binarySearch(mountainArr, target, 0, peak, true); // 左侧递增部分查找
-        if (index != -1) {
-            return index;
+    
+    // 熟悉的闭区间二分模板（用于降序数组）
+    int searchDescending(int target, MountainArray &mountainArr, int l, int r) {
+        while (l <= r) {
+            int mid = l + (r - l) / 2;
+            int mid_val = mountainArr.get(mid);
+            
+            if (mid_val == target) {
+                return mid;
+            } else if (mid_val > target) {
+                l = mid + 1; // 【注意这里】：降序数组越往右越小！当前值比目标大，必须往右找更小的
+            } else {
+                r = mid - 1; // 降序：当前值比目标小，必须往左找更大的
+            }
         }
-        return binarySearch(mountainArr, target, peak + 1, mountainArr.length() - 1, false); // 右侧递减部分查找
+        return -1;
     }
 };
