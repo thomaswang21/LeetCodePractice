@@ -1,41 +1,42 @@
+#include <queue>
+
 class MyStack {
+private:
+    std::queue<int> q1;
+    std::queue<int> q2;
+
 public:
-    queue<int>q1;
-    queue<int>q2;
     MyStack() {
-        
+        // Constructor doesn't need specific initialization 
+        // as std::queue handles it automatically.
     }
     
     void push(int x) {
-        q1.push(x);
+        // Step 1: Push new element to the empty helper queue
+        q2.push(x);
+        
+        // Step 2: Move all elements from main queue to helper queue
+        while (!q1.empty()) {
+            q2.push(q1.front());
+            q1.pop();
+        }
+        
+        // Step 3: Swap the queues so q1 remains our main data structure
+        std::swap(q1, q2);
     }
     
     int pop() {
-        while(q1.size()>1){
-            q2.push(q1.front());
-            q1.pop();
-        }
-        int val=q1.front();
+        int val = q1.front();
         q1.pop();
-        swap(q1, q2);
         return val;
-
     }
     
     int top() {
-         while(q1.size()>1){
-            q2.push(q1.front());
-            q1.pop();
-        }
-        int val=q1.front();
-        q1.pop();
-        q2.push(val);
-        swap(q1, q2);
-        return val;
+        return q1.front();
     }
     
     bool empty() {
-        return q1.empty()&&q2.empty();
+        return q1.empty();
     }
 };
 
