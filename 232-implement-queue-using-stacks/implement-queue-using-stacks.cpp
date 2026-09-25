@@ -1,37 +1,46 @@
+#include <stack>
+
 class MyQueue {
+private:
+    std::stack<int> input;
+    std::stack<int> output;
+    
+    // Helper function to move elements when output stack is empty
+    void transfer() {
+        if (output.empty()) {
+            while (!input.empty()) {
+                output.push(input.top());
+                input.pop();
+            }
+        }
+    }
+
 public:
-stack<int>stk1;
-stack<int>stk2;
     MyQueue() {
-        
+        // Constructor doesn't need to do anything specifically 
+        // as std::stack is automatically initialized.
     }
     
     void push(int x) {
-        stk1.push(x);
+        input.push(x);
     }
     
     int pop() {
-        peek();
-        int top=stk2.top();
-        stk2.pop();
-        return top;
+        transfer();
+        int val = output.top();
+        output.pop();
+        return val;
     }
     
     int peek() {
-        if(stk2.empty()){
-            while(!stk1.empty()){
-                stk2.push(stk1.top());
-                stk1.pop();
-            }
-        }
-        return stk2.top();
+        transfer();
+        return output.top();
     }
     
     bool empty() {
-        return stk1.empty()&&stk2.empty();
+        return input.empty() && output.empty();
     }
 };
-
 /**
  * Your MyQueue object will be instantiated and called as such:
  * MyQueue* obj = new MyQueue();
