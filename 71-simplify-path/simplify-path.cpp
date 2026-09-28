@@ -1,34 +1,44 @@
+#include <string>
+#include <vector>
+#include <sstream>
+
+using namespace std;
+
 class Solution {
 public:
     string simplifyPath(string path) {
-        stack<string>st;
-        string res;
-        for(int i=0;i<path.size();i++){
-            if(path[i]=='/'){
+        vector<string> stack;
+        stringstream ss(path);
+        string token;
+        
+        // Split the path using '/' as a delimiter
+        while (getline(ss, token, '/')) {
+            // Ignore empty strings (from multiple slashes) and single periods
+            if (token == "" || token == ".") {
                 continue;
-            }
-            string temp;
-            while(i<path.size()&&path[i]!='/'){
-                temp+=path[i];
-                i++;
-            }
-            if(temp=="."){
-                continue;
-            }else if(temp==".."){
-                if(!st.empty()){
-                    st.pop();
+            } 
+            // Double periods mean we go up one directory (pop the stack if not empty)
+            else if (token == "..") {
+                if (!stack.empty()) {
+                    stack.pop_back();
                 }
-            }else{
-                st.push(temp);
+            } 
+            // Otherwise, it's a valid directory or file name, push it to the stack
+            else {
+                stack.push_back(token);
             }
         }
-        while(!st.empty()){
-            res="/"+st.top()+res;
-            st.pop();
+        
+        // Reconstruct the simplified canonical path
+        if (stack.empty()) {
+            return "/";
         }
-        if(res.size()==0){
-            return"/";
+        
+        string res = "";
+        for (const string& dir : stack) {
+            res += "/" + dir;
         }
+        
         return res;
     }
 };
